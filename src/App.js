@@ -1,47 +1,40 @@
-import React, {useState} from "react";
+import React, { useReducer} from "react";
 import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
 import { Container } from './components/styles/Container.styled';
 import GlobalStyles from './components/styles/Global';
+import { initialState, reducer } from "./reducer";
 
-function App({todo, addTodo }) {
-  const [todos, setTodos] = useState([
-    { text: "Studying react hooks " },
-    { text: "Going to store" },
-    { text: "Build todo app" },
-    { text: "Spending time with family" }
-  ]);
+function App({todo, addTodo, completeTodo}) {
 
+  const [todos, dispatch] = useReducer(reducer, initialState);
+  
   const addTodos = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
+    dispatch({ type:"ADD_TODOS",
+    todo: {id: todos.length + 1, text, isCompleted: false}
+  });
+  }
+  const handleCompleteTodo = (todo) => {
+    dispatch({ type: "COMPLETE_TODO", id: todo.id });
   };
 
-  const completeTodo = index => {
-    const newTodos = [...todos];
-    newTodos[index].isCompleted = true;
-    setTodos(newTodos);
+  const handleRemoveTodo = (todo) => {
+    dispatch({ type: "REMOVE_TODO", id: todo.id});
   };
 
-  const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-  };
-
-  return (
+   return (
     <>
       <GlobalStyles />
       < Container >
-          {todos.map((todo, index) => (
+          {todos.map((todo) => (
             <Todo
-              key={index}
-              index={index}
+              key={todo.id}
               todo={todo}
-              completeTodo={completeTodo}
-              removeTodo={removeTodo}
+              completeTodo={handleCompleteTodo}
+              removeTodo={handleRemoveTodo}
             />
           ))}
+         
         <TodoForm addTodo={addTodos} />
       </Container>
     </>

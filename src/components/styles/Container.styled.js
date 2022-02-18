@@ -7,4 +7,5 @@ export const Container = styled.div`
   margin: 0 auto;
   background: #e8e8e8;
   border-radius: 5px;
+  margin-top: 60px;
 `

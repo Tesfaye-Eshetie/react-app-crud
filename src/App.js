@@ -4,6 +4,8 @@ import Todo from "./components/Todo";
 import { Container } from './components/styles/Container.styled';
 import GlobalStyles from './components/styles/Global';
 import { initialState, reducer } from "./reducer";
+import Parent from "./components/Parent";
+import Layout from "./Loyout";
 
 function App({todo, addTodo, completeTodo}) {
 
@@ -25,18 +27,21 @@ function App({todo, addTodo, completeTodo}) {
    return (
     <>
       <GlobalStyles />
-      < Container >
-          {todos.map((todo) => (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              completeTodo={handleCompleteTodo}
-              removeTodo={handleRemoveTodo}
-            />
-          ))}
-         
-        <TodoForm addTodo={addTodos} />
-      </Container>
+      <Layout>
+        <Container>
+            {todos.map((todo) => (
+              <Todo
+                key={todo.id}
+                todo={todo}
+                completeTodo={handleCompleteTodo}
+                removeTodo={handleRemoveTodo}
+              />
+            ))}
+          
+          <TodoForm addTodo={addTodos} />
+        </Container>
+        <Parent />
+      </Layout>
     </>
   );
 }

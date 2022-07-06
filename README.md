@@ -1,3 +1,7 @@
+# About this Demo Project
+
+This app is the some as the previous react-app I posted here. I replaced the useState hook by useReducer for CRUD applications. If any one would like to learn useReducer hook this can be a good reference.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
